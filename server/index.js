@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const cors = require('cors');
-const database = require('./database.js');
+const { getAll, insertNew } = require('./database.js');
 
 const app = express();
 
@@ -16,11 +16,25 @@ app.get('*/bundle.js', (req, res) => {
 
 app.get('/products/:id', (req, res) => {
   if (parseInt(req.params.id, 10)) {
-    database.getAll(req.params.id, results => res.send(results));
+    getAll(req.params.id, results => res.send(results));
   } else {
     res.end();
   }
 });
+
+/* TODO: add CREATE route */
+app.post('/api/create', (req, res) => {
+  console.log(req.body);
+  insertNew(req.body, (err, results) => {
+    if (err) {
+      console.error(`Insertion error: ${err}`);
+    } else {
+      res.send(results);
+    }
+  });
+});
+/* TODO: add PUT route */
+/* TODO: add DELETE route */
 
 app.use('/*', express.static(path.join(path.dirname(__dirname), 'public')));
 

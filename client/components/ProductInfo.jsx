@@ -89,6 +89,7 @@ class ProductInfo extends React.Component {
 
   get() {
     const { productId } = this.state;
+    console.log(productId);
     fetch(`/products${productId}`)
       .then(response => response.json())
       .then((obj) => {

@@ -42,4 +42,18 @@ const getAll = function getProductAndRelatedProducts(productId, callback) {
   });
 };
 
-module.exports = { getProduct, getRelated, getAll };
+/* TODO: add CREATE functionality */
+const insertNew = function (body, cb) {
+  const queryString = `INSERT INTO products (id, brand, name, product_tier, product_options, price, about_product, is_prime, stock_count, reviews, questions, seller, thumbnail) VALUES(${body.id}, '${body.brand}', '${body.name}', '${body.productTier}', '${JSON.stringify(body.productOptions)}', '${JSON.stringify(body.price)}', '${JSON.stringify(body.aboutProduct)}', ${body.isPrime}, ${body.stockCount}, '${JSON.stringify(body.reviews)}', ${body.questions}, '${body.seller}', '${body.productTier}.jpg');`;
+  connection.query(queryString, cb);
+};
+
+/* TODO: add PUT functionality */
+/* TODO: add DELETE functionality */
+
+module.exports = {
+  getProduct,
+  getRelated,
+  getAll,
+  insertNew,
+};

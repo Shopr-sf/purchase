@@ -6,6 +6,7 @@ const {
   getAll,
   insertNew,
   updateOne,
+  removeOne,
 } = require('./database.js');
 
 const app = express();
@@ -48,6 +49,16 @@ app.put('/api/update', (req, res) => {
 });
 
 /* TODO: add DELETE route */
+app.delete('/api/remove/:productId', (req, res) => {
+  const { params: { productId } } = req;
+  removeOne(productId, (err, results) => {
+    if (err) {
+      console.error(`Delete error at server line 55: ${err}`);
+    } else {
+      res.send(results);
+    }
+  });
+});
 
 app.use('/*', express.static(path.join(path.dirname(__dirname), 'public')));
 

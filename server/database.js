@@ -42,17 +42,20 @@ const getAll = function getProductAndRelatedProducts(productId, callback) {
   });
 };
 
-const insertNew = function (body, cb) {
-  const queryString = `INSERT INTO products (id, brand, name, product_tier, product_options, price, about_product, is_prime, stock_count, reviews, questions, seller, thumbnail) VALUES(${body.id}, '${body.brand}', '${body.name}', '${body.productTier}', '${JSON.stringify(body.productOptions)}', '${JSON.stringify(body.price)}', '${JSON.stringify(body.aboutProduct)}', ${body.isPrime}, ${body.stockCount}, '${JSON.stringify(body.reviews)}', ${body.questions}, '${body.seller}', '${body.productTier}.jpg');`;
+const insertNew = function (params, cb) {
+  const queryString = `INSERT INTO products (id, brand, name, product_tier, product_options, price, about_product, is_prime, stock_count, reviews, questions, seller, thumbnail) VALUES(${params.id}, '${params.brand}', '${params.name}', '${params.productTier}', '${JSON.stringify(params.productOptions)}', '${JSON.stringify(params.price)}', '${JSON.stringify(params.aboutProduct)}', ${params.isPrime}, ${params.stockCount}, '${JSON.stringify(params.reviews)}', ${params.questions}, '${params.seller}', '${params.productTier}.jpg');`;
   connection.query(queryString, cb);
 };
 
-const updateOne = function (body, cb) {
-  const queryString = `UPDATE products SET brand = '${body.brand}', name = '${body.name}', product_tier = '${body.productTier}', product_options = '${JSON.stringify(body.productOptions)}', price = '${JSON.stringify(body.price)}', about_product = '${JSON.stringify(body.aboutProduct)}', is_prime = ${body.isPrime}, stock_count = ${body.stockCount}, reviews = '${JSON.stringify(body.reviews)}', questions = ${body.questions}, seller = '${body.seller}', thumbnail = '${body.productTier}.jpg' WHERE id=${body.id};`;
+const updateOne = function (params, cb) {
+  const queryString = `UPDATE products SET brand = '${params.brand}', name = '${params.name}', product_tier = '${params.productTier}', product_options = '${JSON.stringify(params.productOptions)}', price = '${JSON.stringify(params.price)}', about_product = '${JSON.stringify(params.aboutProduct)}', is_prime = ${params.isPrime}, stock_count = ${params.stockCount}, reviews = '${JSON.stringify(params.reviews)}', questions = ${params.questions}, seller = '${params.seller}', thumbnail = '${params.productTier}.jpg' WHERE id=${params.id};`;
   connection.query(queryString, cb);
 };
 
 /* TODO: add DELETE functionality */
+const removeOne = function (id, cb) {
+  connection.query(`DELETE from products WHERE id=${id}`, cb);
+};
 
 module.exports = {
   getProduct,
@@ -60,4 +63,5 @@ module.exports = {
   getAll,
   insertNew,
   updateOne,
+  removeOne,
 };

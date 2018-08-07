@@ -42,13 +42,16 @@ const getAll = function getProductAndRelatedProducts(productId, callback) {
   });
 };
 
-/* TODO: add CREATE functionality */
 const insertNew = function (body, cb) {
   const queryString = `INSERT INTO products (id, brand, name, product_tier, product_options, price, about_product, is_prime, stock_count, reviews, questions, seller, thumbnail) VALUES(${body.id}, '${body.brand}', '${body.name}', '${body.productTier}', '${JSON.stringify(body.productOptions)}', '${JSON.stringify(body.price)}', '${JSON.stringify(body.aboutProduct)}', ${body.isPrime}, ${body.stockCount}, '${JSON.stringify(body.reviews)}', ${body.questions}, '${body.seller}', '${body.productTier}.jpg');`;
   connection.query(queryString, cb);
 };
 
-/* TODO: add PUT functionality */
+const updateOne = function (body, cb) {
+  const queryString = `UPDATE products SET brand = '${body.brand}', name = '${body.name}', product_tier = '${body.productTier}', product_options = '${JSON.stringify(body.productOptions)}', price = '${JSON.stringify(body.price)}', about_product = '${JSON.stringify(body.aboutProduct)}', is_prime = ${body.isPrime}, stock_count = ${body.stockCount}, reviews = '${JSON.stringify(body.reviews)}', questions = ${body.questions}, seller = '${body.seller}', thumbnail = '${body.productTier}.jpg' WHERE id=${body.id};`;
+  connection.query(queryString, cb);
+};
+
 /* TODO: add DELETE functionality */
 
 module.exports = {
@@ -56,4 +59,5 @@ module.exports = {
   getRelated,
   getAll,
   insertNew,
+  updateOne,
 };

@@ -48,7 +48,6 @@ app.put('/api/update', (req, res) => {
   });
 });
 
-/* TODO: add DELETE route */
 app.delete('/api/remove/:productId', (req, res) => {
   const { params: { productId } } = req;
   removeOne(productId, (err, results) => {

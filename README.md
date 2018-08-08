@@ -28,6 +28,15 @@ An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
 
 ## Development
 
+## API endpoints
+
+- /api/create (POST)
+  - creates a new item record and returns modification results from the database
+- /api/update (PUT)
+  - updates an item in its entirety on the database and returns the results of said operation from the database
+- /api/delete (DELETE)
+  - removes a record from the database and returns the success message from the database
+
 ### Installing Dependencies
 
 From within the root directory:

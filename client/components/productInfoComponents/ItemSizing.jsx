@@ -2,7 +2,14 @@ import React from 'react';
 import styles from '../../style/productInfoComponents/ItemSizing.css';
 
 const ItemSizing = (props) => {
-  const { sizing, onClick } = props;
+  const { onClick } = props;
+  const sizes = [
+    'S',
+    'M',
+    'L',
+    'XL',
+  ];
+
   return (
     <div>
       <h4 className={styles.title}>
@@ -14,7 +21,7 @@ const ItemSizing = (props) => {
           <option className={styles.first}>
             Select
           </option>
-          {sizing.size.map(el => <option className={styles.option} key={el}>{el}</option>)}
+          {sizes.map(el => <option className={styles.option} key={el}>{el}</option>)}
         </select>
         <a className={styles.link} href="" onClick={onClick} data-target="sizing-modal">
           Size Chart

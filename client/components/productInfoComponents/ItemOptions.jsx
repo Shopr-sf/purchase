@@ -5,7 +5,6 @@ import styles from '../../style/productInfoComponents/ItemOptions.css';
 
 const ItemOptions = (props) => {
   const {
-    options,
     related,
     tier,
     onClick,
@@ -25,7 +24,7 @@ const ItemOptions = (props) => {
           As expected (81%)
         </a>
       </div>
-      <ItemSizing sizing={options} onClick={onClick} />
+      <ItemSizing onClick={onClick} />
       <ItemColors
         tier={tier}
         related={related}

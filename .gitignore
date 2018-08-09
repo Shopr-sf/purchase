@@ -27,3 +27,6 @@ public/bundle.js
 
 #images
 images/
+
+#data.csv's
+*.csv.gz

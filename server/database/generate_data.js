@@ -41,12 +41,14 @@ const generateReviews = () => {
   return output;
 };
 
-const generateRecords = (num) => {
-  for (let index = (10 ** 6) * 5; index < num; index++) {
+const generateRecords = (start, end) => {
+  for (let index = start; index < end; index++) {
     const price = Math.ceil(Math.random() * 400) - 0.02;
     const productTier = tiers[getRandom(25)];
-    console.log(`${index}/${names[index]}/${faker.company.companyName()}/${faker.commerce.productName()}/${productTier}/${JSON.stringify({list: price,msrp: getListAndMSRP(price, 1),sale: getListAndMSRP(price, 2)})}/${JSON.stringify([faker.lorem.sentence(12),faker.lorem.sentence(8),faker.lorem.sentence(10)])}/${Math.round(Math.random())}/${Math.floor(Math.random() * 100)}/${JSON.stringify(generateReviews())}/${getRandom(50)}/${faker.internet.userName()}/${productTier}.jpg`);
+    console.log(`${index}/${names[index]}/${Math.floor(Math.random() * 1000)}/${faker.company.companyName()}/${faker.commerce.productName()}/${productTier}/${JSON.stringify({list:price,msrp:getListAndMSRP(price, 1),sale:getListAndMSRP(price, 2)})}/${JSON.stringify([faker.lorem.sentence(12),faker.lorem.sentence(8),faker.lorem.sentence(10)])}/${Math.round(Math.random())}/${Math.floor(Math.random() * 100)}/${JSON.stringify(generateReviews())}/${getRandom(50)}/${faker.internet.userName()}/${productTier}.jpg`);
   }
 };
 
-generateRecords(10 ** 7);
+generateRecords(0, 3000000);
+generateRecords(3000000, 6000000);
+generateRecords(6000000, 10000000);

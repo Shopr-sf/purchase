@@ -30,3 +30,4 @@ images/
 
 #data.csv's
 *.csv.gz
+*.csv

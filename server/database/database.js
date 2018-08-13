@@ -42,4 +42,4 @@ const getAll = function getProductAndRelatedProducts(productId, callback) {
   });
 };
 
-module.exports = { getProduct, getRelated, getAll };
+module.exports = { getProduct, getRelated, getAll, connection };

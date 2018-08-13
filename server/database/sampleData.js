@@ -28,6 +28,18 @@ const type = [
   'Refrigerator',
   'Smartphone',
   'Battery',
+  'Microwave',
+  'Charger',
+  'TV',
+  'Tablet',
+  'Headphones',
+  'Furniture',
+  'Linens',
+  'Books',
+  'Clothes',
+  'Flatware',
+  'Accessorries',
+  ''
 ];
 
 const name = [

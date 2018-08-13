@@ -2,7 +2,12 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const cors = require('cors');
-const database = require('./database/database.js');
+const {
+  getAll,
+  insertNew,
+  updateOne,
+  removeOne,
+} = require('./database.js');
 
 const app = express();
 
@@ -16,10 +21,42 @@ app.get('*/bundle.js', (req, res) => {
 
 app.get('/products/:id', (req, res) => {
   if (parseInt(req.params.id, 10)) {
-    database.getAll(req.params.id, results => res.send(results));
+    getAll(req.params.id, results => res.send(results));
   } else {
     res.end();
   }
+});
+
+app.post('/api/create', (req, res) => {
+  console.log(req.body);
+  insertNew(req.body, (err, results) => {
+    if (err) {
+      console.error(`Insertion error: ${err}`);
+    } else {
+      res.send(results);
+    }
+  });
+});
+
+app.put('/api/update', (req, res) => {
+  updateOne(req.body, (err, results) => {
+    if (err) {
+      console.error(`Update error at server line 43: ${err}`);
+    } else {
+      res.send(results);
+    }
+  });
+});
+
+app.delete('/api/remove/:productId', (req, res) => {
+  const { params: { productId } } = req;
+  removeOne(productId, (err, results) => {
+    if (err) {
+      console.error(`Delete error at server line 55: ${err}`);
+    } else {
+      res.send(results);
+    }
+  });
 });
 
 app.use('/*', express.static(path.join(path.dirname(__dirname), 'public')));

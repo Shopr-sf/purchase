@@ -10,7 +10,7 @@
   "scripts": {
     "db": "mysql -u root < schema.sql",
     "watch": "webpack --watch",
-    "start": "node server/index.js",
+    "start": "nodemon server/index.js",
     "test": "jest",
     "lint": "eslint ./client/index.jsx ./client/components/** ./server/**"
   },
@@ -21,6 +21,7 @@
     "faker": "^4.1.0",
     "mysql": "^2.16.0",
     "node-fetch": "^2.2.0",
+    "nodemon": "^1.18.3",
     "react": "^16.4.1",
     "react-dom": "^16.4.1"
   },

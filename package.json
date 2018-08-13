@@ -12,7 +12,9 @@
     "watch": "webpack --watch",
     "start": "node server/index.js",
     "test": "jest",
-    "lint": "eslint ./client/index.jsx ./client/components/** ./server/**"
+    "lint": "eslint ./client/index.jsx ./client/components/** ./server/**",
+    "generate_data": "time node --max-old-space-size=8076 server/database/generate_data.js | gzip -c > server/database/data.csv.gz",
+    "load_data": "gunzip server/database/data.csv.gz || psql < server/database/pgschema.sql"
   },
   "dependencies": {
     "body-parser": "^1.18.3",
@@ -21,6 +23,7 @@
     "faker": "^4.1.0",
     "mysql": "^2.16.0",
     "node-fetch": "^2.2.0",
+    "pg": "^7.4.3",
     "react": "^16.4.1",
     "react-dom": "^16.4.1"
   },

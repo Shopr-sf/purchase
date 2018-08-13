@@ -5,7 +5,7 @@ const ItemDescription = (props) => {
   const { description } = props;
   return (
     <ul className={styles.description}>
-      {description.map((bulletPoint, i) => <li key={`item-${i + 1}`}>{bulletPoint}</li>)}
+      {description.split('|').map((bulletPoint, i) => <li key={`item-${i + 1}`}>{bulletPoint}</li>)}
     </ul>
   );
 };

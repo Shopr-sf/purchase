@@ -23,7 +23,7 @@ const ItemPricing = (props) => {
             </td>
             <td>
               <span className={styles.price}>
-                {`$${price.sale}`}
+                {`$${price}`}
               </span>
               <span className={styles.prime}>
                 { isPrime ? <span className={styles.check}>&#x2713;</span> : '' }

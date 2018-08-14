@@ -1,0 +1,22 @@
+config:
+  target: "http://localhost:3003"
+  processor: "./loadTest.js"
+  phases:
+    - duration: 10
+      arrivalRate: 5
+    - duration: 60
+      arrivalRate: 5
+      rampTo: 20
+    - duration: 240
+      arrivalRate: 1000
+    - duration: 120
+      arrivalRate: 20
+      rampTo: 5
+scenarios:
+  - name: "Get records"
+    flow:
+      - loop:
+          - function: "generateId"
+          - get:
+              url: "/products/{{ id }}"
+        count: 50

@@ -1,3 +1,4 @@
+require('newrelic');
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
@@ -7,7 +8,7 @@ const {
   insertNew,
   updateOne,
   removeOne,
-} = require('./database.js');
+} = require('./database/database.js');
 
 const app = express();
 
@@ -21,7 +22,10 @@ app.get('*/bundle.js', (req, res) => {
 
 app.get('/products/:id', (req, res) => {
   if (parseInt(req.params.id, 10)) {
-    getAll(req.params.id, results => res.send(results));
+    getAll(req.params.id, (result) => {
+      console.log(result.rows[0].name);
+      res.send(result.rows);
+    });
   } else {
     res.end();
   }

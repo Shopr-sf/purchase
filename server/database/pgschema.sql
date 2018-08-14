@@ -21,4 +21,6 @@ seller character varying(50) NOT NULL,
 thumbnail TEXT NOT NULL
 );
 
+CREATE INDEX type_idx on products (type);
+
 \copy products FROM './data.csv' DELIMITER '/';

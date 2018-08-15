@@ -1,4 +1,4 @@
-const { Pool, Client } = require('pg');
+const { Pool } = require('pg');
 
 const pool = new Pool({
   user: 'John',
@@ -6,6 +6,7 @@ const pool = new Pool({
   port: 5432,
 });
 // pool.connect();
+
 
 const getProduct = function getProductInformation(productId, callback) {
   pool.query(`select * from products where id=${productId}`, (err, results) => {

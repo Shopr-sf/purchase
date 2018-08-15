@@ -1,9 +1,10 @@
 require('newrelic');
+const redis = require('redis');
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const cors = require('cors');
-const {
+const { 
   getAll,
   insertNew,
   updateOne,
@@ -11,6 +12,9 @@ const {
 } = require('./database/database.js');
 
 const app = express();
+const client = redis.createClient(6379, 'localhost');
+client.on('connect', () => console.log('redis connected'));
+client.on('error', () => console.log('redis error'));
 
 app.use(cors());
 app.use(bodyParser.json());

@@ -89,7 +89,9 @@ class ProductInfo extends React.Component {
 
   get() {
     const { productId } = this.state;
-    fetch(`/products${productId}`)
+    // receive product id from state
+    console.log(productId);
+    fetch(`/api${productId}`)
       .then(response => response.json())
       .then((obj) => {
         const { data, related } = obj;

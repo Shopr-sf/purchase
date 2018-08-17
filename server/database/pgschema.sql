@@ -1,8 +1,8 @@
-DROP DATABASE IF EXISTS product_db;
+-- DROP DATABASE IF EXISTS product_db;
 
-CREATE DATABASE product_db;
+-- CREATE DATABASE product_db;
 
-\c product_db;
+-- \c product_db;
 
 CREATE TABLE products (
 id INTEGER PRIMARY KEY,
@@ -21,6 +21,6 @@ seller character varying(50) NOT NULL,
 thumbnail TEXT NOT NULL
 );
 
-CREATE INDEX type_idx on products (type);
+-- CREATE INDEX type_idx on products (type);
 
 \copy products FROM './data.csv' DELIMITER '/';

@@ -1,6 +1,6 @@
 require('newrelic');
-const cluster = require('cluster');
-const osx = require('os');
+// const cluster = require('cluster');
+// const osx = require('os');
 const redis = require('redis');
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -13,7 +13,7 @@ const {
   removeOne,
 } = require('./database/database.js');
 
-if (cluster.isMaster) {
+if (false) {
   const cpuCount = osx.cpus().length;
   for (let i = 0; i < cpuCount; i++) {
     cluster.fork();
@@ -37,7 +37,7 @@ if (cluster.isMaster) {
   });
 
 
-  app.get('/products/:id', (req, res) => {
+  app.get('/api/:id', (req, res) => {
     const { params: { id } } = req;
     if (Number(id)) {
       client.get(id, (err, reply) => {
@@ -49,7 +49,7 @@ if (cluster.isMaster) {
           const then = new Date();
           getAll(req.params.id, (result) => {
             console.log(`Query time: ${new Date() - then}`);
-            client.setex(id, 300, JSON.stringify(result.rows));
+            client.setex(id, 300, JSON.stringify(result));
             res.send(result);
           });
         }
@@ -93,6 +93,7 @@ if (cluster.isMaster) {
 
   app.use('/*', express.static(path.join(path.dirname(__dirname), 'public')));
 
-  app.listen(3003, () => console.log('Listening on port 3003'));
+  const port = process.env.PORT || 3003;
+  app.listen(3003, () => console.log(`Listening on port ${port}`));
   console.log(`Worker ${process.pid} created.`);
 }

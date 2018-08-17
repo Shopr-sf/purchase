@@ -19,10 +19,14 @@ const ItemOverview = (props) => {
       </div>
       <div className={styles.heading}>
         <span>
-          {`${title.brand} ${title.currentTier} ${title.name}`}
+          {`${title.brand} ${title.productTier} ${title.product_name}`}
         </span>
       </div>
-      <ItemReviews reviewInfo={reviewInfo} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} />
+      <ItemReviews
+        reviewInfo={reviewInfo}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+      />
       <div className={styles.divider} />
     </div>
   );

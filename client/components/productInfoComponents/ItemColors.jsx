@@ -28,9 +28,9 @@ const ListItems = (props) => {
 };
 
 const ItemColors = (props) => {
-  const { tier, related, handlers } = props;
-  const { thumbnail } = props;
+  const { tier, related, handlers, thumbnail } = props;
   const { onMouseEnter, onMouseLeave, onSelect } = handlers;
+  console.log(tier);
 
   return (
     <div>

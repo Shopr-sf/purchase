@@ -1,5 +1,4 @@
 import React from 'react';
-import productData from './mockData';
 import ItemOverview from './productInfoComponents/ItemOverview';
 import ItemPricing from './productInfoComponents/ItemPricing';
 import ItemOptions from './productInfoComponents/ItemOptions';
@@ -10,7 +9,6 @@ import styles from '../style/ProductInfo.css';
 class ProductInfo extends React.Component {
   constructor(props) {
     super(props);
-
     // variable tracking whether mouse is over star meter or reviews modal
     this.reviewsModalVisibility = false;
 
@@ -18,10 +16,23 @@ class ProductInfo extends React.Component {
       productId: window.location.pathname,
       sizingModalVisibility: false,
       reviewsModalVisibility: false,
-      product: productData.data,
-      relatedProducts: productData.related,
+      product: {
+        reviews: [],
+        about_product: '',
+        sale_price: 0,
+      },
+      relatedProducts: [],
       productTier: 'Elite',
     };
+    this.onMouseEnterStars = this.onMouseEnterStars.bind(this);
+    this.onMouseLeaveStars = this.onMouseLeaveStars.bind(this);
+    this.onClickSizeChart = this.onClickSizeChart.bind(this);
+    this.onMouseEnterImageOption = this.onMouseEnterImageOption.bind(this);
+    this.onMouseLeaveImageOption = this.onMouseLeaveImageOption.bind(this);
+    this.onProductTierClick = this.onProductTierClick.bind(this);
+  }
+
+  componentDidMount() {
     this.get();
   }
 
@@ -93,12 +104,13 @@ class ProductInfo extends React.Component {
     console.log(productId);
     fetch(`/api${productId}`)
       .then(response => response.json())
-      .then((obj) => {
-        const { data, related } = obj;
+      .then((data) => {
+        // const { data, related } = obj;
+        console.log(data);
         this.setState({
-          product: data,
-          relatedProducts: related,
-          productTier: data.product_tier,
+          product: data[0],
+          relatedProducts: data.slice(1),
+          productTier: data[0].product_tier,
         });
       })
       .catch(err => console.error(err));
@@ -106,45 +118,57 @@ class ProductInfo extends React.Component {
 
   render() {
     const {
-      product, relatedProducts, sizingModalVisibility, reviewsModalVisibility,
+      product: {
+        isPrime,
+        about_product,
+        brand,
+        product_name,
+        thumbnail,
+        reviews,
+        questions,
+        sale_price,
+      },
+      productTier,
+      relatedProducts,
+      sizingModalVisibility,
+      reviewsModalVisibility,
     } = this.state;
-
-    const { productTier } = this.state;
-    const currentTier = product.product_tier;
-    const isPrime = product.is_prime;
-    const productOptions = product.product_options;
-    const aboutProduct = product.about_product;
-
-    const { brand, name, thumbnail } = product;
-    const { reviews, questions, price } = product;
-    const { onMouseEnterStars, onMouseLeaveStars, onClickSizeChart } = this;
-    const { onMouseEnterImageOption, onMouseLeaveImageOption, onProductTierClick } = this;
+    const {
+      onMouseEnterStars,
+      onMouseLeaveStars,
+      onClickSizeChart,
+      onMouseEnterImageOption,
+      onMouseLeaveImageOption,
+      onProductTierClick,
+    } = this;
 
     return (
       <div className={styles.info}>
         <ItemOverview
-          title={{ brand, name, currentTier }}
+          title={{ brand, product_name, productTier }}
           reviewInfo={{ reviews, questions }}
-          onMouseEnter={onMouseEnterStars.bind(this)}
-          onMouseLeave={onMouseLeaveStars.bind(this)} />
+          onMouseEnter={onMouseEnterStars}
+          onMouseLeave={onMouseLeaveStars}
+        />
         <ItemPricing
-          price={price}
+          price={sale_price}
           isPrime={isPrime}
           reviews={reviews}
-          onMouseEnter={onMouseEnterStars.bind(this)}
-          onMouseLeave={onMouseLeaveStars.bind(this)}
-          visibility={reviewsModalVisibility} />
+          onMouseEnter={onMouseEnterStars}
+          onMouseLeave={onMouseLeaveStars}
+          visibility={reviewsModalVisibility}
+        />
         <ItemOptions
-          options={productOptions}
           tier={productTier}
           thumbnail={thumbnail}
           related={relatedProducts}
-          onClick={onClickSizeChart.bind(this)}
-          onMouseEnter={onMouseEnterImageOption.bind(this)}
-          onMouseLeave={onMouseLeaveImageOption.bind(this)}
-          onSelect={onProductTierClick.bind(this)} />
-        <ItemDescription description={aboutProduct} />
-        <SizingTable visibility={sizingModalVisibility} onClick={onClickSizeChart.bind(this)} />
+          onClick={onClickSizeChart}
+          onMouseEnter={onMouseEnterImageOption}
+          onMouseLeave={onMouseLeaveImageOption}
+          onSelect={onProductTierClick}
+        />
+        <ItemDescription description={about_product} />
+        <SizingTable visibility={sizingModalVisibility} onClick={onClickSizeChart} />
       </div>
     );
   }

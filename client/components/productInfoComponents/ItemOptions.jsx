@@ -20,7 +20,7 @@ const ItemOptions = (props) => {
         <span className={styles.title}>
           Fit:&nbsp;
         </span>
-        <a className={styles.link} href="">
+        <a className={styles.link} href="#">
           As expected (81%)
         </a>
       </div>
@@ -29,7 +29,8 @@ const ItemOptions = (props) => {
         tier={tier}
         related={related}
         thumbnail={thumbnail}
-        handlers={{ onMouseEnter, onMouseLeave, onSelect }} />
+        handlers={{ onMouseEnter, onMouseLeave, onSelect }}
+      />
     </div>
   );
 };

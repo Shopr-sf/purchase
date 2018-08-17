@@ -31,3 +31,6 @@ images/
 #data.csv's
 *.csv.gz
 *.csv
+
+#API keys
+credentials.json

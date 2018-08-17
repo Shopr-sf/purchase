@@ -8,11 +8,14 @@
     "node": ">=6.13.0"
   },
   "scripts": {
-    "db": "mysql -u root < schema.sql",
-    "watch": "webpack --watch",
-    "start": "nodemon server/index.js",
+    "seed-db": "mysql -u root < schema.sql",
+    "react-dev": "webpack --watch",
+    "build": "webpack --mode=production",
+    "start-dev": "nodemon server/index.js",
+    "start": "node server/index.js",
     "test": "jest",
-    "lint": "eslint ./client/index.jsx ./client/components/** ./server/**"
+    "lint": "eslint ./client/index.jsx ./client/components/** ./server/**",
+    "ship": "grunt s3"
   },
   "dependencies": {
     "artillery": "^1.6.0-22",
@@ -20,6 +23,8 @@
     "cors": "^2.8.4",
     "express": "^4.16.3",
     "faker": "^4.1.0",
+    "grunt": "^1.0.3",
+    "grunt-aws": "^0.6.2",
     "mysql": "^2.16.0",
     "newrelic": "^4.8.0",
     "node-fetch": "^2.2.0",

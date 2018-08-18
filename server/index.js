@@ -31,12 +31,11 @@ if (false) {
 
   app.use(cors());
   app.use(bodyParser.json());
-
+  app.get('/loaderio-3699897499fb4bd02cce2713a5bc7f33', (req, res) => res.send('loaderio-3699897499fb4bd02cce2713a5bc7f33'));
   app.get('*/bundle.js', (req, res) => {
     res.sendFile(path.join(path.dirname(__dirname), 'public/bundle.js'));
   });
-
-
+  console.log(process.env.NODE_ENV);
   app.get('/api/:id', (req, res) => {
     const { params: { id } } = req;
     if (Number(id)) {

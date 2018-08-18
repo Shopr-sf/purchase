@@ -3,7 +3,8 @@ module.exports = {
     {
       name: 'purchase-service',
       script: './server/index.js',
-      watch: true,
+      watch: ['server', 'client'],
+      ignore_watch: ['node_modules', 'newrelic**'],
       env: {
         NODE_ENV: 'production',
       },

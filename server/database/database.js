@@ -1,7 +1,7 @@
 const { Pool } = require('pg');
 
 const pool = new Pool({
-  user: 'John',
+  user: 'ec2-user',
   database: 'product_db',
   port: 5432,
 });
@@ -9,7 +9,7 @@ const pool = new Pool({
 
 const getAll = function getProductAndRelatedProducts(productId, callback) {
   const query = {
-    // name: 'get-all',
+    name: 'get-all',
     text: 'select t1.*, t2.product_name, t2.about_product, t2.list_price, t2.reviews from products t1 inner join products t2 on t1.id=$1 and t2.type=t1.type and t1.id!=t2.id limit 6',
     values: [productId],
   };

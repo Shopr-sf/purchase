@@ -2,8 +2,9 @@ module.exports = {
   apps: [
     {
       name: 'purchase-service',
-      script: './app.js',
-      watch: true,
+      script: './server/index.js',
+      watch: ['server', 'client'],
+      ignore_watch: ['node_modules', 'newrelic**'],
       env: {
         NODE_ENV: 'production',
       },

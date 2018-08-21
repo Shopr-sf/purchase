@@ -2,7 +2,7 @@ module.exports = {
   apps: [
     {
       name: 'purchase-service',
-      script: './server/index.js',
+      script: './app.js',
       watch: true,
       env: {
         NODE_ENV: 'production',

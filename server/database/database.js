@@ -4,6 +4,7 @@ const pool = new Pool({
   user: 'server',
   password: 'ria',
   database: 'product_db',
+  host: '18.191.250.5',
   port: 5432,
 });
 

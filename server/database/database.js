@@ -10,14 +10,26 @@ const pool = new Pool({
 
 
 const getAll = function getProductAndRelatedProducts(productId, callback) {
-  const query = {
-    name: 'get-all',
-    text: 'select t1.*, t2.product_name, t2.about_product, t2.list_price, t2.reviews from products t1 inner join products t2 on t1.id=$1 and t2.type=t1.type and t1.id!=t2.id limit 6',
+  let query = {
+    name: 'get-item',
+    // text: 'select t1.*, t2.product_name, t2.about_product, t2.list_price, t2.reviews from products t1 inner join products t2 on t1.id=$1 and t2.type=t1.type and t1.id!=t2.id limit 6',
+    text: 'select * from products where id=$1',
     values: [productId],
   };
   pool.query(query, (err, result) => {
     if (err) console.error(`Error fetching product data from postgres: ${err}`);
-    callback(result.rows);
+    const data = [result.rows[0]];
+    const productType = result.rows[0].type;
+    query = {
+      name: 'get-related',
+      text: 'select * from products where type=$1 limit 5',
+      values: [productType],
+    };
+    pool.query(query, (err, results) => {
+      if (err) console.error(`Error fetching related item data from postgres: ${err}`);
+      data.push(results.rows);
+      callback(data);
+    });
   });
 };
 
